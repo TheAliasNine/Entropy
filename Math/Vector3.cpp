@@ -12,6 +12,15 @@ namespace Math
 	}
 
 
+	//Conversions
+	Vector3::Vector3(Vector2 v2)
+	{
+		x = v2.x;
+		y = v2.y;
+		z = 0;
+	}
+
+
 	//operators
 	Vector3 Vector3::operator+(Vector3 lhs, Vector3 rhs)
 	{
