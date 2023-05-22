@@ -3,6 +3,7 @@
 .vs/
 *.filters
 *.user
+*.rej
 
 # Build artifacts
 x64/

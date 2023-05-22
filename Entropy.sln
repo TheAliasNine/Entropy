@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaylibStarterCPP", "RaylibS
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Raylib", "Raylib\Bindings\Raylib.shproj", "{F660FF67-D70E-4AE0-9080-D922243E9B6E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Math\Math.vcxproj", "{CD63034A-018C-43A8-B40B-E67429E154A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -43,6 +45,14 @@ Global
 		{66F97E22-5E02-4257-B75C-DA71B7A17BFF}.Release|x64.Build.0 = Release|x64
 		{66F97E22-5E02-4257-B75C-DA71B7A17BFF}.Release|x86.ActiveCfg = Release|Win32
 		{66F97E22-5E02-4257-B75C-DA71B7A17BFF}.Release|x86.Build.0 = Release|Win32
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Debug|x64.ActiveCfg = Debug|x64
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Debug|x64.Build.0 = Debug|x64
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Debug|x86.ActiveCfg = Debug|Win32
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Debug|x86.Build.0 = Debug|Win32
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Release|x64.ActiveCfg = Release|x64
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Release|x64.Build.0 = Release|x64
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Release|x86.ActiveCfg = Release|Win32
+		{CD63034A-018C-43A8-B40B-E67429E154A5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
