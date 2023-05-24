@@ -4,6 +4,13 @@
 
 namespace Math
 {
+	Vector3::Vector3()
+	{
+		x = 0;
+		y = 0;
+		z = 0;
+	}
+
 	Vector3::Vector3(float x, float y, float z)
 	{
 		this->x = x;
@@ -22,24 +29,24 @@ namespace Math
 
 
 	//operators
-	Vector3 Vector3::operator+(Vector3 lhs, Vector3 rhs)
+	Vector3 Vector3::operator + (Vector3 other)
 	{
-		return Vector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+		return Vector3(this->x + other.x, this->y + other.y, this->z + other.z);
 	}
 
-	Vector3 Vector3::operator-(Vector3 lhs, Vector3 rhs)
+	Vector3 Vector3::operator - (Vector3 other)
 	{
-		return Vector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+		return Vector3(this->x - other.x, this->y - other.y, this->z - other.z);
 	}
 
-	Vector3 Vector3::operator*(Vector3 v3, float f)
+	Vector3 Vector3::operator *(float f)
 	{
-		return Vector3(v3.x * f, v3.y * f, v3.z * f);
+		return Vector3(this->x * f, this->y * f, this->z * f);
 	}
 
-	Vector3 Vector3::operator/(Vector3 v3, float f)
+	Vector3 Vector3::operator / (float f)
 	{
-		return Vector3(v3.x / f, v3.y / f, v3.z / f);
+		return Vector3(this->x / f, this->y / f, this->z / f);
 	}
 
 

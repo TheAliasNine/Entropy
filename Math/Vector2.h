@@ -5,16 +5,16 @@ namespace Math
 	struct Vector2
 	{
 	public:
-		float x = 0, y = 0;
+		float x, y;
 
-		Vector2() {};
+		Vector2();
 		Vector2(float x, float y);
 
 		//operators
-		static Vector2 operator+(Vector2 lhs, Vector2 rhs);
-		static Vector2 operator-(Vector2 lhs, Vector2 rhs);
-		static Vector2 operator*(Vector2 v2, float f);
-		static Vector2 operator/(Vector2 v2, float f);
+		Vector2 operator + (Vector2 other);
+		Vector2 operator - (Vector2 other);
+		Vector2 operator * (float f);
+		Vector2 operator / (float f);
 
 		//methods
 		float Magnitude();

@@ -4,6 +4,12 @@
 
 namespace Math
 {
+	Vector2::Vector2()
+	{
+		x = 0;
+		y = 0;
+	}
+
 	Vector2::Vector2(float x, float y)
 	{
 		this->x = x;
@@ -12,24 +18,24 @@ namespace Math
 
 
 	//operators
-	Vector2 Vector2::operator+(Vector2 lhs, Vector2 rhs)
+	Vector2 Vector2::operator+(Vector2 other)
 	{
-		return Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
+		return Vector2(this->x + other.x, this->y + other.y);
 	}
 
-	Vector2 Vector2::operator-(Vector2 lhs, Vector2 rhs)
+	Vector2 Vector2::operator-(Vector2 other)
 	{
-		return Vector2(lhs.x - rhs.x, lhs.y - rhs.y);
+		return Vector2(this->x - other.x, this->y - other.y);
 	}
 
-	Vector2 Vector2::operator*(Vector2 v2, float f)
+	Vector2 Vector2::operator*(float f)
 	{
-		return Vector2(v2.x * f, v2.y * f);
+		return Vector2(this->x * f, this->y * f);
 	}
 
-	Vector2 Vector2::operator/(Vector2 v2, float f)
+	Vector2 Vector2::operator/(float f)
 	{
-		return Vector2(v2.x / f, v2.y / f);
+		return Vector2(this->x / f, this->y / f);
 	}
 
 
