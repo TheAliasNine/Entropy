@@ -11,9 +11,9 @@ class SoTransform
 private:
 	SceneObject * obj = nullptr;
 
-	Math::Matrix3 localMatrix = Math::Matrix3(); //handles local rotation, translation and uniform scale
+	Math::Matrix3 localMatrix = Math::Matrix3(1); //handles local rotation, translation and uniform scale
 
-	Math::Matrix3 globalMatrix = Math::Matrix3();
+	Math::Matrix3 globalMatrix = Math::Matrix3(1);
 
 public:
 	SoTransform() {};
@@ -28,6 +28,9 @@ public:
 	void SetLocalRotation(float radians);
 
 	float GetLocalScale();
+
+	float GetGlobalScale();
+
 	/// <summary>
 	/// Sets the uniform scale of the transform
 	/// </summary>

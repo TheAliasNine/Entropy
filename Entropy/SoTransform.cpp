@@ -11,7 +11,7 @@
 SoTransform::SoTransform(SceneObject * sceneObject)
 {
 	obj = sceneObject;
-	localMatrix = Math::Matrix3();
+	localMatrix = Math::Matrix3(1);
 	UpdateGlobal();
 }
 
