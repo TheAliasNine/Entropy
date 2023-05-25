@@ -1,6 +1,12 @@
 #include "Application.h"
+#include "SceneObject.h"
+#include "LineBased.h"
+
+
+
 
 #include "raylib.h"
+
 
 Application::Application()
 {
@@ -43,13 +49,24 @@ void Application::Unload()
 void Application::Draw()
 {
 	BeginDrawing();
-
 	ClearBackground(BLACK);
+
+
+
+
+	for (int i = 0; i < sceneHierarchy.size(); i++)
+	{
+		sceneHierarchy[i]->Draw();
+	}
+
 
 	EndDrawing();
 }
 
 void Application::Update()
 {
-
+	for (int i = 0; i < sceneHierarchy.size(); i++)
+	{
+		sceneHierarchy[i]->Update();
+	}
 }
