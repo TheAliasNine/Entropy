@@ -1,5 +1,8 @@
 #pragma once
 
+#include "SceneObject.h"
+
+#include <vector>
 
 class Application
 {
@@ -13,8 +16,8 @@ private:
 	void Unload(); //release all memory
 	
 	void Update();
-	void Draw();
+	void Draw(); 
 
-private:
+	std::vector<SceneObject*> sceneHierarchy;
 	
 };

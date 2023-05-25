@@ -6,7 +6,7 @@
 
 class SceneObject;
 
-class Transform
+class SoTransform
 {
 private:
 	SceneObject * obj = nullptr;
@@ -16,8 +16,8 @@ private:
 	Math::Matrix3 globalMatrix = Math::Matrix3();
 
 public:
-	Transform() {};
-	Transform(SceneObject * sceneObject);
+	SoTransform() {};
+	SoTransform(SceneObject * sceneObject);
 
 	//methods
 	Math::Vector2 GetLocalTranslation();

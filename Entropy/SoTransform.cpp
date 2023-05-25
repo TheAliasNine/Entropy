@@ -1,4 +1,4 @@
-#include "Transform.h"
+#include "SoTransform.h"
 
 #include "SceneObject.h"
 
@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-Transform::Transform(SceneObject * sceneObject)
+SoTransform::SoTransform(SceneObject * sceneObject)
 {
 	obj = sceneObject;
 	localMatrix = Math::Matrix3();
@@ -16,12 +16,12 @@ Transform::Transform(SceneObject * sceneObject)
 }
 
 
-Math::Vector2 Transform::GetLocalTranslation()
+Math::Vector2 SoTransform::GetLocalTranslation()
 {
 	return Math::Vector2(localMatrix.m02, localMatrix.m12);
 }
 
-void Transform::SetLocalTranslation(const Math::Vector2 translation)
+void SoTransform::SetLocalTranslation(const Math::Vector2 translation)
 {
 	localMatrix.m02 = translation.x;
 	localMatrix.m12 = translation.y;
@@ -29,7 +29,7 @@ void Transform::SetLocalTranslation(const Math::Vector2 translation)
 	obj->UpdateTransform();
 }
 
-void Transform::Translate(const Math::Vector2 translation)
+void SoTransform::Translate(const Math::Vector2 translation)
 {
 	localMatrix.m02 += translation.x;
 	localMatrix.m12 += translation.x;
@@ -38,7 +38,7 @@ void Transform::Translate(const Math::Vector2 translation)
 }
 
 
-void Transform::Rotate(float radians)
+void SoTransform::Rotate(float radians)
 {
 	localMatrix = localMatrix *
 		Math::Matrix3((float)cos(radians), (float)sin(radians), 0,
@@ -46,7 +46,7 @@ void Transform::Rotate(float radians)
 			0, 0, 1);
 }
 
-void Transform::SetLocalRotation(float radians)
+void SoTransform::SetLocalRotation(float radians)
 {
 	localMatrix.m00 =  (float)cos(radians);
 	localMatrix.m10 = (float)sin(radians);
@@ -58,12 +58,12 @@ void Transform::SetLocalRotation(float radians)
 }
 
 
-float Transform::GetLocalScale()
+float SoTransform::GetLocalScale()
 {
 	return Math::Vector2(localMatrix.m00, localMatrix.m10).Magnitude();
 }
 
-void Transform::SetLocalScale(float scale)
+void SoTransform::SetLocalScale(float scale)
 {
 	float oldScale = GetLocalScale();
 
@@ -75,7 +75,7 @@ void Transform::SetLocalScale(float scale)
 	Scale(scale);
 }
 
-void Transform::Scale(float scale)
+void SoTransform::Scale(float scale)
 {
 	localMatrix.m00 *= scale;
 	localMatrix.m10 *= scale;
@@ -86,7 +86,7 @@ void Transform::Scale(float scale)
 }
 
 
-void Transform::UpdateGlobal()
+void SoTransform::UpdateGlobal()
 {
 	SceneObject* parent = obj->GetParent();
 	if (parent != nullptr)
@@ -99,7 +99,7 @@ void Transform::UpdateGlobal()
 	}
 }
 
-Math::Matrix3 Transform::GetGlobalMatrix()
+Math::Matrix3 SoTransform::GetGlobalMatrix()
 {
 	return globalMatrix;
 }

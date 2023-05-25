@@ -1,10 +1,11 @@
 #include "SceneObject.h"
+#include "Component.h"
 
-#include "Transform.h"
+#include "SoTransform.h"
 
 SceneObject::SceneObject()
 {
-	transform = Transform(this);
+	transform = SoTransform(this);
 
 }
 
@@ -21,7 +22,7 @@ void SceneObject::Draw()
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->Draw();
+		components[i]->OnDraw();
 	}
 }
 
@@ -29,7 +30,7 @@ void SceneObject::Update()
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->Update();
+		components[i]->OnUpdate();
 	}
 }
 
@@ -89,4 +90,9 @@ void SceneObject::Unparent(bool updateObj)
 	parent = nullptr;
 	if (!updateObj) return;
 	UpdateTransform();
+}
+
+void SceneObject::AddComponent(Component * component)
+{
+	components.push_back(component);
 }

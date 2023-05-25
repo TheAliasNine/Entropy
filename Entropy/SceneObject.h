@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "Transform.h"
+#include "SoTransform.h"
 
 #include <vector>
 
@@ -22,7 +22,7 @@ public:
 	//Move Assignment
 	SceneObject& operator= (SceneObject&& other) = default;
 
-	Transform transform;
+	SoTransform transform;
 	void UpdateTransform();
 
 	SceneObject * GetParent();
@@ -33,6 +33,9 @@ public:
 	virtual void Update();
 
 	virtual void Draw();
+
+	void AddComponent(Component* component);
+
 
 protected:
 	SceneObject * parent = nullptr;
@@ -47,5 +50,5 @@ protected:
 	//methods for adding children
 
 
-	std::vector<SceneObject*> components;
+	std::vector<Component*> components;
 };
