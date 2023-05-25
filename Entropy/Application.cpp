@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "SceneObject.h"
 #include "LineBased.h"
-
+#include "Line.h"
 
 
 
@@ -38,7 +38,15 @@ void Application::Run()
 
 void Application::Load()
 {
-	
+	SceneObject * so = new SceneObject();
+	LineBased* lines = new LineBased(Collider::Player, WHITE, so);
+
+	lines->AddLine(Line(Math::Vector2(-10, -15), Math::Vector2(0, 15)));
+	lines->AddLine(Line(Math::Vector2(10, -15), Math::Vector2(0, 15)));
+
+	so->AddComponent(lines);
+	so->transform.Translate(Math::Vector2(100, 100));
+	sceneHierarchy.push_back(so);
 }
 
 void Application::Unload()

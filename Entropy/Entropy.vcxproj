@@ -20,15 +20,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="LineSprite.cpp" />
+    <ClCompile Include="CollisionHandler.cpp" />
+    <ClCompile Include="LineBased.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SoTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="LineSprite.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="LineBased.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SoTransform.h" />
   </ItemGroup>
