@@ -1,5 +1,10 @@
 #pragma once
+
+#include "Component.h"
+#include "Transform.h"
+
 #include <vector>
+
 
 class SceneObject
 {
@@ -8,29 +13,39 @@ public:
 	~SceneObject();
 
 	//Copy Constructor
-	SceneObject(const SceneObject& other);
+	SceneObject(const SceneObject& other) = default;
 	//Copy Assignment
-	SceneObject& operator= (const SceneObject& other);
+	SceneObject& operator= (const SceneObject& other) = default;
 
 	//Move
-	SceneObject(SceneObject&& other);
+	SceneObject(SceneObject&& other) = default;
 	//Move Assignment
-	SceneObject& operator= (SceneObject&& other);
+	SceneObject& operator= (SceneObject&& other) = default;
 
+	Transform transform;
+	void UpdateTransform();
+
+	SceneObject * GetParent();
+
+	void SetParent(SceneObject* so);
+
+
+	virtual void Update();
+
+	virtual void Draw();
 
 protected:
-	SceneObject* parent;
-	std::vector<SceneObject> children;
+	SceneObject * parent = nullptr;
+	std::vector<SceneObject *> children;
 
-	//need a transform struct to attatch
+	void Unparent();
 
+	/// <summary>
+	/// Unparents the object if updateObj is false the object is not updated. Use for when the object would be deleted.
+	/// </summary>
+	void Unparent(bool updateObj);
 	//methods for adding children
-	//override methods for Update and Draw
-	//probably some sort of components
-	
 
-	//how to handle drawing
-	//a sprite object?
-	//a component that defines how to draw itself
 
+	std::vector<SceneObject*> components;
 };
