@@ -41,8 +41,9 @@ void Application::Load()
 	SceneObject * so = new SceneObject();
 	LineBased* lines = new LineBased(Collider::Player, WHITE, so);
 
-	lines->AddLine(Line(Math::Vector2(-10, -15), Math::Vector2(0, 15)));
-	lines->AddLine(Line(Math::Vector2(10, -15), Math::Vector2(0, 15)));
+	lines->AddLine(Line(Math::Vector2(-10, 15), Math::Vector2(0, -15)));
+	lines->AddLine(Line(Math::Vector2(10, 15), Math::Vector2(0, -15)));
+	lines->AddLine(Line(Math::Vector2(8, 9), Math::Vector2(-8, 9)));
 
 	so->AddComponent(lines);
 	so->transform.Translate(Math::Vector2(100, 100));
@@ -76,3 +77,14 @@ void Application::Update()
 		sceneHierarchy[i]->Update();
 	}
 }
+
+//lines
+
+//player
+/*
+	lines->AddLine(Line(Math::Vector2(-10, 15), Math::Vector2(0, -15)));
+	lines->AddLine(Line(Math::Vector2(10, 15), Math::Vector2(0, -15)));
+	lines->AddLine(Line(Math::Vector2(8, 9), Math::Vector2(-8, 9)));
+*/
+
+

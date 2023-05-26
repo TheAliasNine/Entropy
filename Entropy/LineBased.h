@@ -20,8 +20,13 @@ public:
 	Color color = Color();
 
 
-	void AddLine(Line line) { lines.push_back(line); }
+	void AddLine(Line line);
 
+	std::vector<Line> globalLines;
+
+private:
 	std::vector<Line> lines;
 
+
+	void UpdateGlobal();
 };
