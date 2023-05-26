@@ -26,7 +26,10 @@ public:
 
 	void Rotate(float radians);
 	void SetLocalRotation(float radians);
+	float GetLocalRotation();
+	float GetGlobalRotation();
 
+	//Uniform scale - means rotation is unnaffected by it
 	float GetLocalScale();
 
 	float GetGlobalScale();
