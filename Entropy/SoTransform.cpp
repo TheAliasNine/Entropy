@@ -21,6 +21,11 @@ Math::Vector2 SoTransform::GetLocalTranslation()
 	return Math::Vector2(localMatrix.m02, localMatrix.m12);
 }
 
+Math::Vector2 SoTransform::GetGlobalTranslation()
+{
+	return Math::Vector2(globalMatrix.m02, globalMatrix.m12);
+}
+
 void SoTransform::SetLocalTranslation(const Math::Vector2 translation)
 {
 	localMatrix.m02 = translation.x;

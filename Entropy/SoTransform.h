@@ -21,6 +21,7 @@ public:
 
 	//methods
 	Math::Vector2 GetLocalTranslation();
+	Math::Vector2 GetGlobalTranslation();
 	void SetLocalTranslation(Math::Vector2 translation);
 	void Translate(Math::Vector2 translation);
 
