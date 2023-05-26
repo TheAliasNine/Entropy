@@ -60,8 +60,6 @@ void Application::Draw()
 	ClearBackground(BLACK);
 
 
-
-
 	for (int i = 0; i < sceneHierarchy.size(); i++)
 	{
 		sceneHierarchy[i]->Draw();
