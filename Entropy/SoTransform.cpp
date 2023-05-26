@@ -11,7 +11,7 @@
 SoTransform::SoTransform(SceneObject * sceneObject)
 {
 	obj = sceneObject;
-	localMatrix = Math::Matrix3();
+	localMatrix = Math::Matrix3(1);
 	UpdateGlobal();
 }
 
@@ -19,6 +19,11 @@ SoTransform::SoTransform(SceneObject * sceneObject)
 Math::Vector2 SoTransform::GetLocalTranslation()
 {
 	return Math::Vector2(localMatrix.m02, localMatrix.m12);
+}
+
+Math::Vector2 SoTransform::GetGlobalTranslation()
+{
+	return Math::Vector2(globalMatrix.m02, globalMatrix.m12);
 }
 
 void SoTransform::SetLocalTranslation(const Math::Vector2 translation)
@@ -44,6 +49,7 @@ void SoTransform::Rotate(float radians)
 		Math::Matrix3((float)cos(radians), (float)sin(radians), 0,
 			(float)-sin(radians), (float)cos(radians), 0,
 			0, 0, 1);
+	obj->UpdateTransform();
 }
 
 void SoTransform::SetLocalRotation(float radians)
@@ -55,6 +61,16 @@ void SoTransform::SetLocalRotation(float radians)
 
 	obj->UpdateTransform();
 
+}
+
+float SoTransform::GetLocalRotation()
+{
+	return (float)atan2(localMatrix.m10, localMatrix.m00);
+}
+
+float SoTransform::GetGlobalRotation()
+{
+	return (float)atan2(globalMatrix.m10, globalMatrix.m00);
 }
 
 
@@ -74,6 +90,14 @@ void SoTransform::SetLocalScale(float scale)
 
 	Scale(scale);
 }
+
+
+float SoTransform::GetGlobalScale()
+{
+	return Math::Vector2(globalMatrix.m00, globalMatrix.m10).Magnitude();
+}
+
+
 
 void SoTransform::Scale(float scale)
 {
