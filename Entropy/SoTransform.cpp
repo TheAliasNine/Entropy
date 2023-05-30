@@ -67,6 +67,15 @@ float SoTransform::GetLocalRotation()
 {
 	return (float)atan2(localMatrix.m10, localMatrix.m00);
 }
+Math::Matrix3 SoTransform::GetLocalRotationMatrix()
+{
+	return Math::Matrix3(localMatrix.m00, localMatrix.m01, 0, localMatrix.m10, localMatrix.m11, 0, 0, 0 ,1);
+}
+
+Math::Matrix3 SoTransform::GetGlobalRotationMatrix()
+{
+	return Math::Matrix3(globalMatrix.m00, globalMatrix.m01, 0, globalMatrix.m10, globalMatrix.m11, 0, 0, 0 ,1);
+}
 
 float SoTransform::GetGlobalRotation()
 {

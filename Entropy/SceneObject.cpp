@@ -1,12 +1,13 @@
 #include "SceneObject.h"
 #include "Component.h"
+#include "CollisionInfo.h"
 
 #include "SoTransform.h"
 
-SceneObject::SceneObject()
+SceneObject::SceneObject(Application* app)
 {
+	this->app = app;
 	transform = SoTransform(this);
-
 }
 
 SceneObject::~SceneObject()
@@ -26,11 +27,11 @@ void SceneObject::Draw()
 	}
 }
 
-void SceneObject::Update()
+void SceneObject::Update(float deltaTime)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->OnUpdate();
+		components[i]->OnUpdate(deltaTime);
 	}
 }
 
@@ -92,7 +93,15 @@ void SceneObject::Unparent(bool updateObj)
 	UpdateTransform();
 }
 
-void SceneObject::AddComponent(Component * component)
+void SceneObject::AddComponent(Component* component)
 {
 	components.push_back(component);
+}
+
+void SceneObject::OnCollision(CollisionInfo info)
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnCollision(info);
+	}
 }

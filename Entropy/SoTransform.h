@@ -28,6 +28,8 @@ public:
 	void Rotate(float radians);
 	void SetLocalRotation(float radians);
 	float GetLocalRotation();
+	Math::Matrix3 GetLocalRotationMatrix();
+	Math::Matrix3 GetGlobalRotationMatrix();
 	float GetGlobalRotation();
 
 	//Uniform scale - means rotation is unnaffected by it

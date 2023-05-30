@@ -1,9 +1,9 @@
 #pragma once
 
-
-#include "Collider.h"
-
 #include <vector>
+
+class Collider;
+
 
 class CollisionHandler
 {

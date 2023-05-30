@@ -7,12 +7,11 @@
 
 void CollisionHandler::CheckCollisions()
 {
-	for (int base = 0; base < colliders.size() - 1; base++)
+	for (int base = 0; base + 1 < colliders.size(); base++)
 	{
 		for (int other = base + 1; other < colliders.size(); other++)
 		{
-			//change when more than line collisions add
-			colliders[base]
+			colliders[base]->CheckCollision(colliders[other]);
 		}
 	}
 }

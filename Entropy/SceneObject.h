@@ -1,7 +1,8 @@
 #pragma once
-
+#include "Application.h"
 #include "Component.h"
 #include "SoTransform.h"
+#include "CollisionInfo.h"
 
 #include <vector>
 
@@ -9,7 +10,7 @@
 class SceneObject
 {
 public:
-	SceneObject();
+	SceneObject(Application* app);
 	~SceneObject();
 
 	//Copy Constructor
@@ -25,17 +26,20 @@ public:
 	SoTransform transform;
 	void UpdateTransform();
 
-	SceneObject * GetParent();
+	SceneObject* GetParent();
 
 	void SetParent(SceneObject* so);
 
 
-	virtual void Update();
+	virtual void Update(float deltaTime);
 
 	virtual void Draw();
 
 	void AddComponent(Component* component);
 
+	Application* app;
+
+	void OnCollision(CollisionInfo info);
 
 protected:
 	SceneObject * parent = nullptr;
@@ -50,5 +54,5 @@ protected:
 	//methods for adding children
 
 
-	std::vector<Component*> components;
+	std::vector<Component*> components = std::vector<Component*>();
 };

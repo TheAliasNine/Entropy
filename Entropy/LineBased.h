@@ -2,6 +2,7 @@
 
 #include "Collider.h"
 #include "Line.h"
+#include "CollisionInfo.h"
 
 #include "raylib.h"
 
@@ -11,11 +12,9 @@ class SceneObject;
 class LineBased : public Collider
 {
 public:
-	LineBased() {};
-	LineBased(Layer layer, Color color, SceneObject* obj);
+	LineBased(Layer layer, Color color, SceneObject* so);
 
 	void OnDraw();
-	void OnUpdate();
 	
 	Color color = Color();
 
@@ -23,6 +22,13 @@ public:
 	void AddLine(Line line);
 
 	std::vector<Line> globalLines;
+
+	void AddColliderToHandler() override;
+
+	void CheckCollision(const Collider* collider) const override;
+	void CheckCollision(const LineBased* lineBased) const override;
+
+	void OnCollision(CollisionInfo info) override {}
 
 private:
 	std::vector<Line> lines;

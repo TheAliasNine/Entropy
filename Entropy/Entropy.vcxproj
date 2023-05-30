@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
+    <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="LineBased.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SoTransform.cpp" />
   </ItemGroup>
@@ -30,6 +32,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
+    <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LineBased.h" />
