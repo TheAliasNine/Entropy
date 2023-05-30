@@ -1,8 +1,9 @@
 #pragma once
-
-#include "SceneObject.h"
+#include "CollisionHandler.h"
 
 #include <vector>
+
+class SceneObject;
 
 class Application
 {
@@ -10,6 +11,8 @@ public:
 	Application();
 	~Application();
 	void Run();
+
+	CollisionHandler* GetCollisionHandler();
 
 private:
 	void Load();
@@ -19,5 +22,5 @@ private:
 	void Draw(); 
 
 	std::vector<SceneObject*> sceneHierarchy;
-	
+	CollisionHandler* collisionHandler;
 };

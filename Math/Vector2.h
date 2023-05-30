@@ -22,7 +22,7 @@ namespace Math
 		void Normalize();
 		Vector2 Normalized();
 
-		float Dot(Vector2 lhs, Vector2 rhs);
-		Vector2 Cross(Vector2 lhs, Vector2 rhs);
+		static float Dot(Vector2 lhs, Vector2 rhs);
+		static Vector2 Cross(Vector2 lhs, Vector2 rhs);
 	};
 }
