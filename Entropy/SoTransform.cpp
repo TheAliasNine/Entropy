@@ -37,7 +37,7 @@ void SoTransform::SetLocalTranslation(const Math::Vector2 translation)
 void SoTransform::Translate(const Math::Vector2 translation)
 {
 	localMatrix.m02 += translation.x;
-	localMatrix.m12 += translation.x;
+	localMatrix.m12 += translation.y;
 
 	obj->UpdateTransform();
 }

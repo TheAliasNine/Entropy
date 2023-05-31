@@ -13,6 +13,8 @@
 #include <math.h>
 
 
+#include <iostream>
+
 LineBased::LineBased(Layer layer, Color color, SceneObject* so) : Collider(so)
 {
 	this->layer = layer;
@@ -40,6 +42,7 @@ void LineBased::AddLine(Line line)
 	Math::Vector3 startPos = obj->transform.GetGlobalMatrix() * Math::Vector3(line.start.x, line.start.y, 1);
 	Math::Vector3 endPos = obj->transform.GetGlobalMatrix() * Math::Vector3(line.end.x, line.end.y, 1);
 	globalLines.push_back(Line(Math::Vector2(startPos.x, startPos.y), Math::Vector2(endPos.x, endPos.y)));
+	UpdateGlobal();
 }
 
 void LineBased::UpdateGlobal()
@@ -59,35 +62,39 @@ void LineBased::AddColliderToHandler()
 	obj->app->GetCollisionHandler()->AddCollider(this);
 }
 
-void LineBased::CheckCollision(const Collider* collider) const
+void LineBased::CheckCollision(Collider* collider)
 {
 	collider->CheckCollision(this);
 }
 
-void LineBased::CheckCollision(const LineBased* lineBased) const
+void LineBased::CheckCollision(LineBased* lineBased)
 {
+	UpdateGlobal();
+	lineBased->UpdateGlobal();
 	for (int mainIndex = 0; mainIndex < lines.size(); mainIndex++)
 	{
-		Line ab = lines[mainIndex];
-		Math::Vector2 abDir = (ab.start - ab.end).Normalized();
-		Math::Vector2 abInverse = Math::Vector2(-abDir.y, abDir.x);
+		Line AB = globalLines[mainIndex];
+		Math::Vector2 m = AB.end - AB.start;
 
 		for (int otherIndex = 0; otherIndex < lineBased->lines.size(); otherIndex++)
 		{
-			Line cd = lines[otherIndex];
+			Line CD = lineBased->globalLines[otherIndex];
+			Math::Vector2 n = CD.end - CD.start;
 
-			//get vector from startA to startB
-			Math::Vector2 aToC = cd.start - ab.start;
-			Math::Vector2 cToD = cd.end - cd.start;
-			//get vector for b start to b end
 
-			float dot = Math::Vector2::Dot(cToD, abInverse);
-			if (dot < 0.000001f) continue;
 
-			float t = (aToC.y * cToD.x - aToC.x * cToD.y) / dot;
-			float s = Math::Vector2::Dot(aToC, abInverse) / dot;
 
-			if ((t >= 0 && t <= 1) || (s >= 0 && s <= 1))
+			float t1 = Math::Vector2::Cross(CD.end, n);
+			float t2 = Math::Vector2::Cross(AB.end, n);
+			float t3 = Math::Vector2::Cross(m, n);
+			float t = (t2 - t1) / t3;
+
+			float s1 = Math::Vector2::Cross(AB.end, m);
+			float s2 = Math::Vector2::Cross(CD.end, m);
+			float s3 = Math::Vector2::Cross(n, m);
+			float s = (s2 - s1) / s3;
+
+			if ((t >= 0 && t <= 1) && (s >= 0 && s <= 1))
 			{
 				CollisionInfo thisInfo = CollisionInfo(lineBased->obj, lineBased->layer);
 				obj->OnCollision(thisInfo);
@@ -95,6 +102,7 @@ void LineBased::CheckCollision(const LineBased* lineBased) const
 				CollisionInfo otherInfo = CollisionInfo(obj, layer);
 				lineBased->obj->OnCollision(otherInfo);
 
+				std::cout << "Collision" << std::endl;
 				return;
 			}
 		}

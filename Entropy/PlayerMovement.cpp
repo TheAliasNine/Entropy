@@ -1,4 +1,4 @@
-#include "Component.h"
+#include "PlayerMovement.h"
 #include "SceneObject.h"
 
 #include "Vector2.h"
@@ -6,25 +6,31 @@
 
 #include "raylib.h"
 
-class PlayerMovement : public Component
+#include <math.h>
+
+void PlayerMovement::OnUpdate(float deltaTime)
 {
-private:
-	Math::Vector2 velocity = Math::Vector2();
-	Math::Vector2 acceleration = Math::Vector2(25, 0);
-	float maxSpeed = 50;
-
-public:
-	PlayerMovement(SceneObject* obj)
+	if (IsKeyDown(KeyboardKey::KEY_W))
 	{
-		this->obj = obj;
-	}
-
-	void OnUpdate(float deltaTime)
-	{
-		if (IsKeyDown(KeyboardKey::KEY_W))
+		Math::Vector2 direction = Math::Vector2(obj->transform.GetGlobalRotationMatrix().m01, obj->transform.GetGlobalRotationMatrix().m11);
+		velocity = velocity + (direction * acceleration * deltaTime);
+		
+		//check if above max speed
+		if (velocity.Magnitude() > abs(maxSpeed))
 		{
-			//velocity = velocity + obj->transform.GetGlobalRotationMatrix() * acceleration * deltaTime;
+			//do it like this so change of direction is slower
+			velocity = velocity.Normalized() * maxSpeed;
 		}
 	}
 
-};
+	if (IsKeyDown(KeyboardKey::KEY_A))
+	{
+		obj->transform.Rotate(turnSpeed * deltaTime);
+	}
+	if (IsKeyDown(KeyboardKey::KEY_D))
+	{
+		obj->transform.Rotate(-turnSpeed * deltaTime);
+	}
+
+	obj->transform.Translate(Math::Vector2(velocity.x, velocity.y) * deltaTime);
+}

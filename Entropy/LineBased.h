@@ -25,8 +25,8 @@ public:
 
 	void AddColliderToHandler() override;
 
-	void CheckCollision(const Collider* collider) const override;
-	void CheckCollision(const LineBased* lineBased) const override;
+	void CheckCollision(Collider* collider) override;
+	void CheckCollision(LineBased* lineBased) override;
 
 	void OnCollision(CollisionInfo info) override {}
 
