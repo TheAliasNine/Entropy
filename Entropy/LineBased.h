@@ -14,6 +14,8 @@ class LineBased : public Collider
 public:
 	LineBased(Layer layer, Color color, SceneObject* so);
 
+	~LineBased();
+
 	void OnDraw();
 	
 	Color color = Color();

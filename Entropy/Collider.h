@@ -20,6 +20,7 @@ public:
 		Asteroid,
 		Enemy,
 		Solid,
+		PlayerBullet,
 	};
 
 	Layer layer = Solid;

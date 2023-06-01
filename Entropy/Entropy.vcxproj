@@ -20,17 +20,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="LineBased.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
-    <ClCompile Include="PremadeSceneObjects.cpp" />
+    <ClCompile Include="PlayerShooting.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SoTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllComponents.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="CollisionInfo.h" />
@@ -38,6 +41,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="LineBased.h" />
     <ClInclude Include="PlayerMovement.h" />
+    <ClInclude Include="PlayerShooting.h" />
     <ClInclude Include="PremadeSceneObjects.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SoTransform.h" />

@@ -22,6 +22,11 @@ LineBased::LineBased(Layer layer, Color color, SceneObject* so) : Collider(so)
 	AddColliderToHandler();
 }
 
+LineBased::~LineBased()
+{
+	obj->app->GetCollisionHandler()->RemoveCollider(this);
+}
+
 void LineBased::OnDraw()
 {
 	UpdateGlobal();

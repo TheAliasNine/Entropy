@@ -73,3 +73,21 @@ CollisionHandler* Application::GetCollisionHandler()
 {
 	return collisionHandler;
 }
+
+void Application::AddSceneObject(SceneObject* obj)
+{
+	sceneHierarchy.push_back(obj);
+}
+
+void Application::RemoveSceneObject(SceneObject* obj)
+{
+	for (int i = 0; i < sceneHierarchy.size(); i++)
+	{
+		if (sceneHierarchy[i] == obj)
+		{
+			std::vector<SceneObject*>::iterator it = sceneHierarchy.begin();
+			it += i;
+			sceneHierarchy.erase(it);
+		}
+	}
+}

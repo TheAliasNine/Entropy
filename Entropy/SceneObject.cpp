@@ -12,11 +12,18 @@ SceneObject::SceneObject(Application* app)
 
 SceneObject::~SceneObject()
 {
-	if (parent == nullptr) Unparent();
+	if (parent != nullptr) Unparent();
 	for (int i = 0; i < children.size(); i++)
 	{
 		delete children[i];
 	}
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		delete components[i];
+	}
+
+	app->RemoveSceneObject(this);
 }
 
 void SceneObject::Draw()
