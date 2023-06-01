@@ -1,35 +1,26 @@
 #pragma once
 
 #include "Collider.h"
-#include "Line.h"
 #include "CollisionInfo.h"
+#include "Vector2.h"
 
-#include "raylib.h"
-
-#include <vector>
-
-class SceneObject;
-class Plane;
-class LineBased : public Collider
+class AABB : public Collider
 {
 public:
-	LineBased(SceneObject* so, Layer layer, Color color);
+	AABB(SceneObject* obj, Layer layer, Math::Vector2 min, Math::Vector2 max);
 
-	void OnDraw();
 	void OnCollision(CollisionInfo info) override {}
 
-	Color color;
-	std::vector<Line> globalLines;
-
-	void AddLine(Line line);
-	void UpdateGlobal();
-	
 
 	void CheckCollision(Collider* collider) override;
 	void CheckCollision(LineBased* lineBased) override;
 	void CheckCollision(Plane* lineBased) override;
 	void CheckCollision(AABB* aabb) override;
 
+	Math::Vector2 GetGlobalMin();
+	Math::Vector2 GetGlobalMax();
+
 private:
-	std::vector<Line> lines;
+	Math::Vector2 min;
+	Math::Vector2 max;
 };

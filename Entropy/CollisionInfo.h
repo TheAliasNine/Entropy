@@ -2,6 +2,8 @@
 
 #include "Collider.h"
 
+class SceneObject;
+
 class CollisionInfo
 {
 public:

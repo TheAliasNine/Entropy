@@ -4,15 +4,12 @@
 
 class SceneObject;
 class LineBased;
+class Plane;
+class AABB;
 
 class Collider : public Component
 {
 public:
-
-	Collider(SceneObject* obj)
-	{
-		this->obj = obj;
-	}
 
 	enum Layer
 	{
@@ -21,12 +18,19 @@ public:
 		Enemy,
 		Solid,
 		PlayerBullet,
+		InBounds,
 	};
+
+
+	Collider(SceneObject* obj, Layer layer);
+
+	~Collider();
 
 	Layer layer = Solid;
 
 
-	virtual void AddColliderToHandler() = 0;
 	virtual void CheckCollision(Collider* other) = 0;
-	virtual void CheckCollision(LineBased* other)  = 0;
+	virtual void CheckCollision(LineBased* other) = 0;
+	virtual void CheckCollision(Plane* other) = 0;
+	virtual void CheckCollision(AABB* other) = 0;
 };

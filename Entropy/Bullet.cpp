@@ -20,9 +20,14 @@ void Bullet::OnUpdate(float deltaTime)
 
 void Bullet::OnCollision(CollisionInfo info)
 {
-	if (info.collisionLayer == Collider::Player) return;
+	if (info.collisionLayer == Collider::InBounds)
+	{
+
+	}
+	else if (info.collisionLayer == Collider::Player) return;
 	else
 	{
 		delete obj;
+		return;
 	}
 }
