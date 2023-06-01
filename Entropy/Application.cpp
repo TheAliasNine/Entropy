@@ -2,7 +2,9 @@
 #include "CollisionHandler.h"
 #include "SceneObject.h"
 #include "PremadeSceneObjects.h"
+#include "Plane.h"
 
+#include "Vector2.h"
 
 #include "raylib.h"
 
@@ -38,6 +40,7 @@ void Application::Run()
 void Application::Load()
 {
 	sceneHierarchy.push_back(PremadeSceneObjects::Player(this));
+	sceneHierarchy.push_back(PremadeSceneObjects::InBounds(this));
 }
 
 void Application::Unload()

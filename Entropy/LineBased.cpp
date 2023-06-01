@@ -2,6 +2,7 @@
 #include "CollisionInfo.h"
 #include "LineBased.h"
 #include "Line.h"
+#include "Plane.h"
 #include "SceneObject.h"
 #include "SoTransform.h"
 
@@ -12,20 +13,12 @@
 
 #include <math.h>
 
-
-#include <iostream>
-
-LineBased::LineBased(Layer layer, Color color, SceneObject* so) : Collider(so)
+LineBased::LineBased(SceneObject* so, Layer layer, Color color) : Collider(so, layer)
 {
 	this->layer = layer;
 	this->color = color;
-	AddColliderToHandler();
 }
 
-LineBased::~LineBased()
-{
-	obj->app->GetCollisionHandler()->RemoveCollider(this);
-}
 
 void LineBased::OnDraw()
 {
@@ -59,12 +52,6 @@ void LineBased::UpdateGlobal()
 
 		globalLines[i] = Line(Line(Math::Vector2(startPos.x, startPos.y), Math::Vector2(endPos.x, endPos.y)));
 	}
-}
-
-
-void LineBased::AddColliderToHandler()
-{
-	obj->app->GetCollisionHandler()->AddCollider(this);
 }
 
 void LineBased::CheckCollision(Collider* collider)
@@ -106,10 +93,52 @@ void LineBased::CheckCollision(LineBased* lineBased)
 
 				CollisionInfo otherInfo = CollisionInfo(obj, layer);
 				lineBased->obj->OnCollision(otherInfo);
-
-				std::cout << "Collision" << std::endl;
 				return;
 			}
+		}
+	}
+}
+
+void LineBased::CheckCollision(Plane* plane)
+{
+	for (int i = 0; i < globalLines.size(); i++)
+	{
+		//if start or end points collide with the plane
+		float dotStart = Math::Vector2::Dot(plane->GetGlobalNormal(), globalLines[i].start);
+		dotStart -= plane->GetGlobalDist();
+		float dotEnd = Math::Vector2::Dot(plane->GetGlobalNormal(), globalLines[i].end);
+		dotEnd -= plane->GetGlobalDist();
+
+		if (dotStart > 0 || dotEnd > 0)
+		{
+			CollisionInfo thisInfo = CollisionInfo(plane->obj, plane->layer);
+			obj->OnCollision(thisInfo);
+
+			CollisionInfo otherInfo = CollisionInfo(obj, layer);
+			plane->obj->OnCollision(otherInfo);
+			return;
+		}
+	}
+}
+
+void LineBased::CheckCollision(AABB* aabb)
+{
+	for (int i = 0; i < globalLines.size(); i++)
+	{
+		//if start or end points are within the min and the max
+		Math::Vector2 min = aabb->GetGlobalMin();
+		Math::Vector2 max = aabb->GetGlobalMax();
+		if ((globalLines[i].start.x > min.x && globalLines[i].start.x < max.x
+			&& globalLines[i].start.y > min.x && globalLines[i].start.y < max.x)
+			|| (globalLines[i].end.x > min.x && globalLines[i].end.x < max.x
+				&& globalLines[i].end.y > min.x && globalLines[i].end.y < max.x))
+		{
+			CollisionInfo thisInfo = CollisionInfo(aabb->obj, aabb->layer);
+			obj->OnCollision(thisInfo);
+
+			CollisionInfo otherInfo = CollisionInfo(obj, layer);
+			aabb->obj->OnCollision(otherInfo);
+			return;
 		}
 	}
 }
