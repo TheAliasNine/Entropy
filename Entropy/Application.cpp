@@ -1,10 +1,7 @@
 #include "Application.h"
 #include "CollisionHandler.h"
 #include "SceneObject.h"
-#include "LineBased.h"
-#include "Line.h"
-#include "PlayerMovement.h"
-
+#include "PremadeSceneObjects.h"
 
 
 #include "raylib.h"
@@ -40,17 +37,7 @@ void Application::Run()
 
 void Application::Load()
 {
-	SceneObject* so = new SceneObject(this);
-	LineBased* lines = new LineBased(Collider::Player, WHITE, so);
-
-	lines->AddLine(Line(Math::Vector2(-10, -15), Math::Vector2(0, 15)));
-	lines->AddLine(Line(Math::Vector2(10, -15), Math::Vector2(0, 15)));
-	lines->AddLine(Line(Math::Vector2(8, -9), Math::Vector2(-8, -9)));
-	PlayerMovement* playerMovement = new PlayerMovement(so);
-	so->AddComponent(playerMovement);
-	so->AddComponent(lines);
-	so->transform.Translate(Math::Vector2(100, 100));
-	sceneHierarchy.push_back(so);
+	sceneHierarchy.push_back(PremadeSceneObjects::Player(this));
 }
 
 void Application::Unload()
@@ -86,14 +73,3 @@ CollisionHandler* Application::GetCollisionHandler()
 {
 	return collisionHandler;
 }
-
-//lines
-
-//player
-/*
-	lines->AddLine(Line(Math::Vector2(-10, -15), Math::Vector2(0, 15)));
-	lines->AddLine(Line(Math::Vector2(10, -15), Math::Vector2(0, 15)));
-	lines->AddLine(Line(Math::Vector2(8, -9), Math::Vector2(-8, -9)));
-*/
-
-

@@ -24,8 +24,6 @@ public:
 
 	Layer layer = Solid;
 
-	SceneObject* obj = nullptr;
-
 
 	virtual void AddColliderToHandler() = 0;
 	virtual void CheckCollision(Collider* other) = 0;
