@@ -14,6 +14,8 @@ class LineBased : public Collider
 public:
 	LineBased(Layer layer, Color color, SceneObject* so);
 
+	~LineBased();
+
 	void OnDraw();
 	
 	Color color = Color();
@@ -25,8 +27,8 @@ public:
 
 	void AddColliderToHandler() override;
 
-	void CheckCollision(const Collider* collider) const override;
-	void CheckCollision(const LineBased* lineBased) const override;
+	void CheckCollision(Collider* collider) override;
+	void CheckCollision(LineBased* lineBased) override;
 
 	void OnCollision(CollisionInfo info) override {}
 

@@ -14,6 +14,9 @@ public:
 
 	CollisionHandler* GetCollisionHandler();
 
+	void AddSceneObject(SceneObject* obj);
+	void RemoveSceneObject(SceneObject* obj);
+
 private:
 	void Load();
 	void Unload(); //release all memory

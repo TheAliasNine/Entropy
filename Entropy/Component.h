@@ -7,6 +7,7 @@ class CollisionInfo;
 class Component
 {
 public:
+	virtual ~Component() = default;
 
 	virtual void OnUpdate(float deltaTime) {};
 	virtual void OnDraw() {};

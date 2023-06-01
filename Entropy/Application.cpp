@@ -1,9 +1,7 @@
 #include "Application.h"
 #include "CollisionHandler.h"
 #include "SceneObject.h"
-#include "LineBased.h"
-#include "Line.h"
-
+#include "PremadeSceneObjects.h"
 
 
 #include "raylib.h"
@@ -39,30 +37,7 @@ void Application::Run()
 
 void Application::Load()
 {
-	SceneObject* so = new SceneObject(this);
-	LineBased* lines = new LineBased(Collider::Player, WHITE, so);
-
-	lines->AddLine(Line(Math::Vector2(-10, 15), Math::Vector2(0, -15)));
-	lines->AddLine(Line(Math::Vector2(10, 15), Math::Vector2(0, -15)));
-	lines->AddLine(Line(Math::Vector2(8, 9), Math::Vector2(-8, 9)));
-
-	so->AddComponent(lines);
-	so->transform.Translate(Math::Vector2(100, 100));
-	sceneHierarchy.push_back(so);
-
-	SceneObject* so2 = new SceneObject(this);
-	LineBased* lines2 = new LineBased(Collider::Player, WHITE, so2);
-
-	lines2->AddLine(Line(Math::Vector2(-10, 15), Math::Vector2(0, -15)));
-	lines2->AddLine(Line(Math::Vector2(10, 15), Math::Vector2(0, -15)));
-	lines2->AddLine(Line(Math::Vector2(8, 9), Math::Vector2(-8, 9)));
-
-	so2->AddComponent(lines2);
-	so2->transform.Translate(Math::Vector2(100, 100));
-	sceneHierarchy.push_back(so2);
-
-
-
+	sceneHierarchy.push_back(PremadeSceneObjects::Player(this));
 }
 
 void Application::Unload()
@@ -99,13 +74,20 @@ CollisionHandler* Application::GetCollisionHandler()
 	return collisionHandler;
 }
 
-//lines
+void Application::AddSceneObject(SceneObject* obj)
+{
+	sceneHierarchy.push_back(obj);
+}
 
-//player
-/*
-	lines->AddLine(Line(Math::Vector2(-10, 15), Math::Vector2(0, -15)));
-	lines->AddLine(Line(Math::Vector2(10, 15), Math::Vector2(0, -15)));
-	lines->AddLine(Line(Math::Vector2(8, 9), Math::Vector2(-8, 9)));
-*/
-
-
+void Application::RemoveSceneObject(SceneObject* obj)
+{
+	for (int i = 0; i < sceneHierarchy.size(); i++)
+	{
+		if (sceneHierarchy[i] == obj)
+		{
+			std::vector<SceneObject*>::iterator it = sceneHierarchy.begin();
+			it += i;
+			sceneHierarchy.erase(it);
+		}
+	}
+}

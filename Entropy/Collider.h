@@ -20,14 +20,13 @@ public:
 		Asteroid,
 		Enemy,
 		Solid,
+		PlayerBullet,
 	};
 
 	Layer layer = Solid;
 
-	SceneObject* obj = nullptr;
-
 
 	virtual void AddColliderToHandler() = 0;
-	virtual void CheckCollision(const Collider* other) const = 0;
-	virtual void CheckCollision(const LineBased* other) const = 0;
+	virtual void CheckCollision(Collider* other) = 0;
+	virtual void CheckCollision(LineBased* other)  = 0;
 };

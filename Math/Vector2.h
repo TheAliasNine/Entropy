@@ -23,6 +23,6 @@ namespace Math
 		Vector2 Normalized();
 
 		static float Dot(Vector2 lhs, Vector2 rhs);
-		static Vector2 Cross(Vector2 lhs, Vector2 rhs);
+		static float Cross(Vector2 lhs, Vector2 rhs);
 	};
 }

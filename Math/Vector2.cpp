@@ -64,10 +64,8 @@ namespace Math
 		return lhs.x * rhs.x + lhs.y * rhs.y;
 	}
 
-	Vector2 Vector2::Cross(Vector2 lhs, Vector2 rhs)
+	float Vector2::Cross(Vector2 lhs, Vector2 rhs)
 	{
-		return Vector2(
-			lhs.y - rhs.y,
-			rhs.x - lhs.x);
+		return (lhs.x * rhs.y) - (lhs.y * rhs.x);
 	}
 }
