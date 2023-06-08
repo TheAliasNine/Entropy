@@ -3,7 +3,6 @@
 #include "CollisionInfo.h"
 
 #include "SoTransform.h"
-
 SceneObject::SceneObject(Application* app)
 {
 	this->app = app;
@@ -62,6 +61,11 @@ void SceneObject::SetParent(SceneObject* so)
 	if (parent != nullptr)
 	{
 		Unparent();
+	}
+	if (so == nullptr)
+	{
+		UpdateTransform();
+		return;
 	}
 	so->children.push_back(so);
 	parent = so;

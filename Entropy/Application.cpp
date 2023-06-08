@@ -9,6 +9,8 @@
 #include "raylib.h"
 
 
+#include "AsteroidMove.h"
+
 Application::Application()
 {
 	collisionHandler = new CollisionHandler();
@@ -24,7 +26,8 @@ void Application::Run()
 {
 	InitWindow(1000, 1000, "Entropy");
 
-	SetTargetFPS(60);
+	//300 because need to be able to check enough physics updates to try and stop lines from travelling to far in a single frame and skipping collision check
+	SetTargetFPS(300);
 
 	Load();
 	while (!WindowShouldClose())
@@ -39,8 +42,10 @@ void Application::Run()
 
 void Application::Load()
 {
-	sceneHierarchy.push_back(PremadeSceneObjects::Player(this));
-	sceneHierarchy.push_back(PremadeSceneObjects::InBounds(this));
+	screen = PremadeSceneObjects::InBounds(1000, 1000);
+	sceneHierarchy.push_back(PremadeSceneObjects::ScreenBoundPlayer(this, screen));
+	sceneHierarchy.push_back(PremadeSceneObjects::ScreenBoundAsteroid(this, screen, 45, AsteroidMove::Large));
+
 }
 
 void Application::Unload()

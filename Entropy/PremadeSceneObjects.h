@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneObject.h"
+#include "ScreenBoundObject.h"
 #include "AllComponents.h"
 
 class Application;
@@ -37,12 +38,59 @@ namespace PremadeSceneObjects
 		return(so);
 	}
 
-	static SceneObject* InBounds(Application* app, uint16_t screenWidth, uint16_t screenheight)
+	static AABB* InBounds(float screenWidth, float screenheight)
 	{
-		SceneObject* obj = new SceneObject(app);
-		AABB* aabb = new AABB(obj, Collider::InBounds, Math::Vector2(-(float)screenWidth / 2, -(float)screenheight / 2), Math::Vector2((float)screenWidth / 2, (float)screenheight / 2));
-		obj->transform.Translate(Math::Vector2((float)screenWidth / 2, (float)screenheight / 2));
-		obj->AddComponent(aabb);
-		return obj;
+		AABB* aabb = new AABB(nullptr, Collider::InBounds, Math::Vector2(), Math::Vector2(screenWidth, screenheight));
+		return aabb;
+	}
+
+
+	//ScreenBoundObjects
+	static SceneObject* ScreenBoundPlayer(Application* app, AABB* screen)
+	{
+		ScreenBoundObject* so = new ScreenBoundObject(app, screen);
+		LineBased* lines = new LineBased(so, Collider::Player, WHITE);
+
+		lines->AddLine(Line(Math::Vector2(-10, -15), Math::Vector2(0, 15)));
+		lines->AddLine(Line(Math::Vector2(10, -15), Math::Vector2(0, 15)));
+		lines->AddLine(Line(Math::Vector2(8, -9), Math::Vector2(-8, -9)));
+		PlayerMovement* playerMovement = new PlayerMovement(so);
+		so->AddComponent(playerMovement);
+		so->AddComponent(lines);
+		so->SetBound(lines);
+		PlayerShooting* shooting = new PlayerShooting(so);
+		so->AddComponent(shooting);
+		so->transform.Translate(Math::Vector2(100, 100));
+		return so;
+	}
+
+	static SceneObject* ScreenBoundPlayerBullet(Application* app, AABB* screen)
+	{
+		ScreenBoundObject* so = new ScreenBoundObject(app, screen);
+		LineBased* lines = new LineBased(so, Collider::PlayerBullet, WHITE);
+		lines->AddLine(Line(Math::Vector2(0, 0), Math::Vector2(0, 7)));
+
+		so->AddComponent(lines);
+		so->SetBound(lines);
+
+		Bullet* bullet = new Bullet(so);
+		so->AddComponent(bullet);
+
+		return(so);
+	}
+
+	static SceneObject* ScreenBoundAsteroid(Application* app, AABB* screen, float rotation, AsteroidMove::Size size)
+	{
+		ScreenBoundObject* so = new ScreenBoundObject(app, screen);
+		LineBased* lines = new LineBased(so, Collider::Asteroid, WHITE);
+		lines->AddLine(Line(Math::Vector2(0, 20), Math::Vector2(0, 0)));
+
+		so->AddComponent(lines);
+		so->SetBound(lines);
+
+		AsteroidMove* ast = new AsteroidMove(so, rotation, size);
+		so->AddComponent(ast);
+
+		return(so);
 	}
 }

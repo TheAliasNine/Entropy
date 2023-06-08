@@ -4,6 +4,7 @@
 #include <vector>
 
 class SceneObject;
+class AABB;
 
 class Application
 {
@@ -16,6 +17,8 @@ public:
 
 	void AddSceneObject(SceneObject* obj);
 	void RemoveSceneObject(SceneObject* obj);
+	AABB* screen;
+
 
 private:
 	void Load();

@@ -25,10 +25,10 @@ public:
 	void UpdateGlobal();
 	
 
-	void CheckCollision(Collider* collider) override;
-	void CheckCollision(LineBased* lineBased) override;
-	void CheckCollision(Plane* lineBased) override;
-	void CheckCollision(AABB* aabb) override;
+	bool CheckCollision(Collider* collider) override;
+	bool CheckCollision(LineBased* lineBased) override;
+	bool CheckCollision(Plane* lineBased) override;
+	bool CheckCollision(AABB* aabb) override;
 
 private:
 	std::vector<Line> lines;

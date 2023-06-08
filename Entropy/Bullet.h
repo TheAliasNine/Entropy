@@ -13,6 +13,6 @@ public:
 
 private:
 	float speed = 800;
-	float liveTime = 1;
+	float liveTime = 1.5f;
 	float timer = 0;
 };

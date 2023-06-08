@@ -5,7 +5,6 @@
 
 #include "Vector3.h"
 
-
 class PlayerMovement : public Component
 {
 public:
@@ -17,7 +16,7 @@ public:
 	void OnUpdate(float deltaTime) override;
 
 	void OnDraw() override {};
-	void OnCollision(CollisionInfo info) override {};
+	void OnCollision(CollisionInfo info) override { };
 private:
 	Math::Vector2 velocity = Math::Vector2();
 	float acceleration = 275;

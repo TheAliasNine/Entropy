@@ -29,8 +29,8 @@ public:
 	Layer layer = Solid;
 
 
-	virtual void CheckCollision(Collider* other) = 0;
-	virtual void CheckCollision(LineBased* other) = 0;
-	virtual void CheckCollision(Plane* other) = 0;
-	virtual void CheckCollision(AABB* other) = 0;
+	virtual bool CheckCollision(Collider* other) = 0;
+	virtual bool CheckCollision(LineBased* other) = 0;
+	virtual bool CheckCollision(Plane* other) = 0;
+	virtual bool CheckCollision(AABB* other) = 0;
 };

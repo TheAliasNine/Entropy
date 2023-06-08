@@ -54,10 +54,11 @@ void SoTransform::Rotate(float radians)
 
 void SoTransform::SetLocalRotation(float radians)
 {
-	localMatrix.m00 =  (float)cos(radians);
-	localMatrix.m10 = (float)sin(radians);
-	localMatrix.m01 = (float)-sin(radians);
-	localMatrix.m11 = (float)cos(radians);
+	float scale = GetLocalScale();
+	localMatrix.m00 = (float)cos(radians) * scale;
+	localMatrix.m10 = (float)sin(radians) * scale;
+	localMatrix.m01 = (float)-sin(radians) * scale;
+	localMatrix.m11 = (float)cos(radians) * scale;
 
 	obj->UpdateTransform();
 
@@ -65,7 +66,11 @@ void SoTransform::SetLocalRotation(float radians)
 
 float SoTransform::GetLocalRotation()
 {
-	return (float)atan2(localMatrix.m10, localMatrix.m00);
+	float scale = GetLocalScale();
+	Scale(1 / scale);
+	float returnVal = (float)atan2(localMatrix.m10, localMatrix.m00);
+	Scale(scale);
+	return returnVal;
 }
 Math::Matrix3 SoTransform::GetLocalRotationMatrix()
 {
