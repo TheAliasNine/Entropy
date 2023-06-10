@@ -10,6 +10,11 @@
 
 void PlayerMovement::OnUpdate(float deltaTime)
 {
+	if (invincible)
+	{
+		invincibleTimer += deltaTime;
+		if (invincibleTimer >= invincibleTime) invincible = false;
+	}
 	if (IsKeyDown(KeyboardKey::KEY_W))
 	{
 		Math::Vector2 direction = Math::Vector2(obj->transform.GetGlobalRotationMatrix().m01, obj->transform.GetGlobalRotationMatrix().m11);
@@ -42,7 +47,7 @@ void PlayerMovement::OnUpdate(float deltaTime)
 		}
 		else
 		{
-			velocity = velocity / deceleration;
+			velocity = velocity / (1 + deceleration * deltaTime);
 		}
 	}
 
@@ -56,4 +61,16 @@ void PlayerMovement::OnUpdate(float deltaTime)
 	}
 
 	obj->transform.Translate(Math::Vector2(velocity.x, velocity.y) * deltaTime);
+}
+
+void PlayerMovement::OnCollision(CollisionInfo info)
+{
+	if (info.collisionLayer == Collider::Asteroid && !invincible)
+	{
+		obj->app->lives -= 1;
+		invincible = true;
+		obj->transform.SetLocalRotation(0);
+		velocity = Math::Vector2();
+		obj->transform.SetLocalTranslation(Math::Vector2(250, 250));
+	}
 }

@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "AABB.h"
 #include "CollisionInfo.h"
+
 #include "Vector2.h"
 
 class Plane : public Collider
@@ -13,10 +14,10 @@ public:
 	void OnCollision(CollisionInfo info) override {}
 
 
-	void CheckCollision(Collider* collider) override;
-	void CheckCollision(LineBased* lineBased) override;
-	void CheckCollision(Plane* lineBased) override;
-	void CheckCollision(AABB* aabb) override;
+	bool CheckCollision(Collider* collider) override;
+	bool CheckCollision(LineBased* lineBased) override;
+	bool CheckCollision(Plane* lineBased) override;
+	bool CheckCollision(AABB* aabb) override;
 
 	float GetGlobalDist();
 	Math::Vector2 GetGlobalNormal();

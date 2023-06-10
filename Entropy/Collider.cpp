@@ -5,7 +5,10 @@ Collider::Collider(SceneObject* obj, Layer layer)
 {
 	this->obj = obj;
 	this->layer = layer;
-	obj->app->GetCollisionHandler()->AddCollider(this);
+	if (obj != nullptr)
+	{
+		obj->app->GetCollisionHandler()->AddCollider(this);
+	}
 }
 
 Collider::~Collider()

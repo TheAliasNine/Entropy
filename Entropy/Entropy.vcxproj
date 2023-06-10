@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AsteroidManager.cpp" />
+    <ClCompile Include="AsteroidMove.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
@@ -31,12 +33,15 @@
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PlayerShooting.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="ScreenBoundObject.cpp" />
     <ClCompile Include="SoTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AllComponents.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AsteroidManager.h" />
+    <ClInclude Include="AsteroidMove.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
@@ -49,6 +54,7 @@
     <ClInclude Include="PlayerShooting.h" />
     <ClInclude Include="PremadeSceneObjects.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="ScreenBoundObject.h" />
     <ClInclude Include="SoTransform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -109,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +149,7 @@
       </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Raylib\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Math\</AdditionalIncludeDirectories>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +168,7 @@
       </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Raylib\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Math\</AdditionalIncludeDirectories>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

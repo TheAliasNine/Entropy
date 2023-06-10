@@ -12,9 +12,9 @@ Plane::Plane(SceneObject* obj, Layer layer, float distance, Math::Vector2 normal
 	this->normal = normal;
 }
 
-void Plane::CheckCollision(Collider* collider)
+bool Plane::CheckCollision(Collider* collider)
 {
-	collider->CheckCollision(this);
+	return collider->CheckCollision(this);
 }
 
 
@@ -30,7 +30,7 @@ Math::Vector2 Plane::GetGlobalNormal()
 }
 
 
-void Plane::CheckCollision(LineBased* lineBased)
+bool Plane::CheckCollision(LineBased* lineBased)
 {
 	for (int i = 0; i < lineBased->globalLines.size(); i++)
 	{
@@ -40,27 +40,21 @@ void Plane::CheckCollision(LineBased* lineBased)
 		float dotEnd = Math::Vector2::Dot(GetGlobalNormal(), lineBased->globalLines[i].end);
 		dotEnd -= GetGlobalDist();
 
-		if (dotStart > 0 || dotEnd > 0)
-		{
-			CollisionInfo thisInfo = CollisionInfo(lineBased->obj, lineBased->layer);
-			obj->OnCollision(thisInfo);
-
-			CollisionInfo otherInfo = CollisionInfo(obj, layer);
-			lineBased->obj->OnCollision(otherInfo);
-			return;
-		}
+		if (dotStart > 0 || dotEnd > 0) return true;
 	}
+	return false;
 }
 
 /// <summary>
 /// Blank function since this project doesn't require plane on plane collision
 /// </summary>
-void Plane::CheckCollision(Plane* lineBased)
+bool Plane::CheckCollision(Plane* lineBased)
 {
-	
+	return false;
 }
 
-void Plane::CheckCollision(AABB* aabb)
+bool Plane::CheckCollision(AABB* aabb)
 {
-	//just haven't done this, haha if this took a while to realise this was the cause of a bug
+	//just haven't done this, haha if it took a while to realise this was the cause of a bug
+	return false;
 }

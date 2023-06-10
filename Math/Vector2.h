@@ -18,11 +18,13 @@ namespace Math
 
 		//methods
 		float Magnitude();
+		float MagnitudeSqr();
 
 		void Normalize();
 		Vector2 Normalized();
 
 		static float Dot(Vector2 lhs, Vector2 rhs);
 		static float Cross(Vector2 lhs, Vector2 rhs);
+		static Vector2 Clamp(Vector2 value, Vector2 clampMin, Vector2 clampMax);
 	};
 }

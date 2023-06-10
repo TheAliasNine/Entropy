@@ -1,8 +1,8 @@
-#include "SceneObject.h"
 #include "Component.h"
 #include "CollisionInfo.h"
-
+#include "SceneObject.h"
 #include "SoTransform.h"
+
 
 SceneObject::SceneObject(Application* app)
 {
@@ -13,7 +13,7 @@ SceneObject::SceneObject(Application* app)
 SceneObject::~SceneObject()
 {
 	if (parent != nullptr) Unparent();
-	for (int i = 0; i < children.size(); i++)
+	for (int i = children.size() - 1; i > -1 ; i--)
 	{
 		delete children[i];
 	}
@@ -28,6 +28,10 @@ SceneObject::~SceneObject()
 
 void SceneObject::Draw()
 {
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->Draw();
+	}
 	for (int i = 0; i < components.size(); i++)
 	{
 		components[i]->OnDraw();
@@ -36,6 +40,10 @@ void SceneObject::Draw()
 
 void SceneObject::Update(float deltaTime)
 {
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->Update(deltaTime);
+	}
 	for (int i = 0; i < components.size(); i++)
 	{
 		components[i]->OnUpdate(deltaTime);
@@ -63,7 +71,12 @@ void SceneObject::SetParent(SceneObject* so)
 	{
 		Unparent();
 	}
-	so->children.push_back(so);
+	if (so == nullptr)
+	{
+		UpdateTransform();
+		return;
+	}
+	so->children.push_back(this);
 	parent = so;
 	UpdateTransform();
 }
@@ -82,6 +95,7 @@ void SceneObject::Unparent()
 	}
 	parent = nullptr;
 	UpdateTransform();
+	app->RemoveSceneObject(this);
 }
 void SceneObject::Unparent(bool updateObj)
 {
@@ -98,6 +112,7 @@ void SceneObject::Unparent(bool updateObj)
 	parent = nullptr;
 	if (!updateObj) return;
 	UpdateTransform();
+	app->RemoveSceneObject(this);
 }
 
 void SceneObject::AddComponent(Component* component)
@@ -111,4 +126,9 @@ void SceneObject::OnCollision(CollisionInfo info)
 	{
 		components[i]->OnCollision(info);
 	}
+}
+
+int SceneObject::ChildrenCount()
+{
+	return children.size();
 }

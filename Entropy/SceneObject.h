@@ -41,6 +41,8 @@ public:
 
 	void OnCollision(CollisionInfo info);
 
+	int ChildrenCount();
+
 protected:
 	SceneObject * parent = nullptr;
 	std::vector<SceneObject *> children;
