@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AsteroidManager.cpp" />
     <ClCompile Include="AsteroidMove.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="AllComponents.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AsteroidManager.h" />
     <ClInclude Include="AsteroidMove.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />

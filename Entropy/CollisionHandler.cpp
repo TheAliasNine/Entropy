@@ -18,11 +18,12 @@ void CollisionHandler::CheckCollisions()
 
 			if (colliders[base]->CheckCollision(colliders[other]))
 			{
+				Collider* otherPointer = colliders[other];
 				CollisionInfo baseInfo = CollisionInfo(colliders[other]->obj, colliders[other]->layer);
 				colliders[base]->obj->OnCollision(baseInfo);
-
+				
 				CollisionInfo otherInfo = CollisionInfo(colliders[base]->obj, colliders[base]->layer);
-				colliders[base]->obj->OnCollision(otherInfo);
+				otherPointer->obj->OnCollision(otherInfo);
 			}
 		}
 	}
@@ -37,15 +38,21 @@ void CollisionHandler::AddCollider(Collider* collider)
 
 void CollisionHandler::RemoveCollider(Collider* collider)
 {
+	bool removed = false;
 	std::vector<Collider*>::iterator it = colliders.begin();
 	for (int i = 0; i < colliders.size(); i++)
 	{
 		if (colliders[i] == collider)
 		{
 			colliders.erase(it);
+			removed = true;
 			break;
 		}
 
 		it++;
+	}
+	if (!removed)
+	{
+
 	}
 }

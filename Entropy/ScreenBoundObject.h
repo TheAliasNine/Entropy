@@ -5,6 +5,8 @@
 #include "LineBased.h"
 #include "CollisionInfo.h"
 
+#include "Vector2.h"
+
 
 class ScreenBoundObject : public SceneObject
 {
@@ -12,7 +14,7 @@ public:
 	ScreenBoundObject(Application* app, AABB* screen);
 private:
 	bool inBounds;
-	
+	Math::Vector2* previousFurthest;
 	//The collider component this object has to check if it is in bounds or not
 	LineBased* boundCollider = nullptr;
 	//AABB*

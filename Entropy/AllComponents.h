@@ -8,3 +8,4 @@
 #include "Plane.h"
 #include "AABB.h"
 #include "AsteroidMove.h"
+#include "AsteroidManager.h"

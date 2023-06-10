@@ -60,7 +60,7 @@ namespace PremadeSceneObjects
 		so->SetBound(lines);
 		PlayerShooting* shooting = new PlayerShooting(so);
 		so->AddComponent(shooting);
-		so->transform.Translate(Math::Vector2(100, 100));
+		so->transform.Translate(Math::Vector2(250, 250));
 		return so;
 	}
 
@@ -83,14 +83,33 @@ namespace PremadeSceneObjects
 	{
 		ScreenBoundObject* so = new ScreenBoundObject(app, screen);
 		LineBased* lines = new LineBased(so, Collider::Asteroid, WHITE);
-		lines->AddLine(Line(Math::Vector2(0, 20), Math::Vector2(0, 0)));
+		lines->AddLine(Line(Math::Vector2(-15, 9), Math::Vector2(-15, -9)));
+		lines->AddLine(Line(Math::Vector2(-15, -9), Math::Vector2(-6.5f, -16.5f)));
+		lines->AddLine(Line(Math::Vector2(-7.5f, -16.5f), Math::Vector2(0, -9)));
+		lines->AddLine(Line(Math::Vector2(0, -9), Math::Vector2(7.5f, -16.5f)));
+		lines->AddLine(Line(Math::Vector2(7.5f, -16.5f), Math::Vector2(15, -9)));
+		lines->AddLine(Line(Math::Vector2(15, -9), Math::Vector2(10.5f, 0)));
+		lines->AddLine(Line(Math::Vector2(10.5f, 0), Math::Vector2(15, 9)));
+
+		lines->AddLine(Line(Math::Vector2(-15, 9), Math::Vector2(-7.5f, 16.5f)));
+		lines->AddLine(Line(Math::Vector2(-7.5f, 16.5f), Math::Vector2(4.5f, 16.5f)));
+		lines->AddLine(Line(Math::Vector2(4.5f, 16.5f), Math::Vector2(15, 9)));
+
 
 		so->AddComponent(lines);
 		so->SetBound(lines);
 
 		AsteroidMove* ast = new AsteroidMove(so, rotation, size);
 		so->AddComponent(ast);
-
+		so->transform.SetLocalTranslation(Math::Vector2(250, 250));
 		return(so);
+	}
+
+	static SceneObject* WaveManager(Application* app, SceneObject* player)
+	{
+		SceneObject* so = new SceneObject(app);
+		AsteroidManager* astMan = new AsteroidManager(so, player);
+		so->AddComponent(astMan);
+		return so;
 	}
 }

@@ -9,6 +9,7 @@ ScreenBoundObject::ScreenBoundObject(Application* app, AABB* screen) : SceneObje
 {
 	screenCollider = screen;
 	inBounds = false;
+	previousFurthest = nullptr;
 }
 
 
@@ -19,31 +20,41 @@ void ScreenBoundObject::Update(float deltaTime)
 	{
 		Math::Vector2 FP = boundCollider->globalLines[0].start; //(FP meaning Furthest Point)
 		Math::Vector2 FPClosestBorderPoint = Math::Vector2::Clamp(boundCollider->globalLines[0].start, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
-		float FPDistSqr = (FPClosestBorderPoint - boundCollider->globalLines[0].start).MagnitudeSqr();;
-		for (int i = 0; i < boundCollider->globalLines.size(); i++)
+		if (previousFurthest == nullptr)
 		{
-			//find closest part of the border to it  (clamp the value)
-			//then find the distance^2 (for efficiency) compare distanceSqr against the current highest
-
-			Math::Vector2 closestBorder = Math::Vector2::Clamp(boundCollider->globalLines[i].start, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
-			float distSqr = (closestBorder - boundCollider->globalLines[i].start).MagnitudeSqr();
-			
-			if (distSqr > FPDistSqr)
+			float FPDistSqr = (FPClosestBorderPoint - boundCollider->globalLines[0].start).MagnitudeSqr();;
+			for (int i = 0; i < boundCollider->globalLines.size(); i++)
 			{
-				FP = boundCollider->globalLines[i].start;
-				FPClosestBorderPoint = closestBorder;
-				FPDistSqr = distSqr;
-			}
-			
-			closestBorder = Math::Vector2::Clamp(boundCollider->globalLines[i].end, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
-			distSqr = (closestBorder - boundCollider->globalLines[i].end).MagnitudeSqr();
+				//find closest part of the border to it  (clamp the value)
+				//then find the distance^2 (for efficiency) compare distanceSqr against the current highest
 
-			if (distSqr > FPDistSqr)
-			{
-				FP = boundCollider->globalLines[i].end;
-				FPClosestBorderPoint = closestBorder;
-				FPDistSqr = distSqr;
+				Math::Vector2 closestBorder = Math::Vector2::Clamp(boundCollider->globalLines[i].start, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
+				float distSqr = (closestBorder - boundCollider->globalLines[i].start).MagnitudeSqr();
+
+				if (distSqr > FPDistSqr)
+				{
+					FP = boundCollider->globalLines[i].start;
+					previousFurthest = &boundCollider->globalLines[i].start;
+					FPClosestBorderPoint = closestBorder;
+					FPDistSqr = distSqr;
+				}
+
+				closestBorder = Math::Vector2::Clamp(boundCollider->globalLines[i].end, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
+				distSqr = (closestBorder - boundCollider->globalLines[i].end).MagnitudeSqr();
+
+				if (distSqr > FPDistSqr)
+				{
+					FP = boundCollider->globalLines[i].end;
+					previousFurthest = &boundCollider->globalLines[i].end;
+					FPClosestBorderPoint = closestBorder;
+					FPDistSqr = distSqr;
+				}
 			}
+		}
+		else
+		{
+			FP = *previousFurthest;
+			FPClosestBorderPoint = Math::Vector2::Clamp(FP, screenCollider->GetGlobalMin(), screenCollider->GetGlobalMax());
 		}
 		Math::Vector2 displacementFromBorder = FP - FPClosestBorderPoint;
 
@@ -69,6 +80,10 @@ void ScreenBoundObject::Update(float deltaTime)
 			translation.y = screenCollider->GetGlobalMin().y - FP.y;
 		}
 		transform.Translate(translation);
+	}
+	else
+	{
+		previousFurthest = nullptr;
 	}
 	SceneObject::Update(deltaTime);
 }
