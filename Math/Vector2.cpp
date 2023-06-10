@@ -4,6 +4,12 @@
 
 namespace Math
 {
+	Vector2::Vector2()
+	{
+		x = 0;
+		y = 0;
+	}
+
 	Vector2::Vector2(float x, float y)
 	{
 		this->x = x;
@@ -12,24 +18,24 @@ namespace Math
 
 
 	//operators
-	Vector2 Vector2::operator+(Vector2 lhs, Vector2 rhs)
+	Vector2 Vector2::operator+(Vector2 other)
 	{
-		return Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
+		return Vector2(this->x + other.x, this->y + other.y);
 	}
 
-	Vector2 Vector2::operator-(Vector2 lhs, Vector2 rhs)
+	Vector2 Vector2::operator-(Vector2 other)
 	{
-		return Vector2(lhs.x - rhs.x, lhs.y - rhs.y);
+		return Vector2(this->x - other.x, this->y - other.y);
 	}
 
-	Vector2 Vector2::operator*(Vector2 v2, float f)
+	Vector2 Vector2::operator*(float f)
 	{
-		return Vector2(v2.x * f, v2.y * f);
+		return Vector2(this->x * f, this->y * f);
 	}
 
-	Vector2 Vector2::operator/(Vector2 v2, float f)
+	Vector2 Vector2::operator/(float f)
 	{
-		return Vector2(v2.x / f, v2.y / f);
+		return Vector2(this->x / f, this->y / f);
 	}
 
 
@@ -38,6 +44,11 @@ namespace Math
 	{
 		float dSqr = x * x + y * y;
 		return sqrt(dSqr);
+	}
+
+	float Vector2::MagnitudeSqr()
+	{
+		return x * x + y * y;
 	}
 
 	void Vector2::Normalize()
@@ -58,10 +69,37 @@ namespace Math
 		return lhs.x * rhs.x + lhs.y * rhs.y;
 	}
 
-	Vector2 Vector2::Cross(Vector2 lhs, Vector2 rhs)
+	float Vector2::Cross(Vector2 lhs, Vector2 rhs)
 	{
-		return Vector2(
-			lhs.y - rhs.y,
-			rhs.x - lhs.x);
+		return (lhs.x * rhs.y) - (lhs.y * rhs.x);
+	}
+	Vector2 Vector2::Clamp(Vector2 value, Vector2 clampMin, Vector2 clampMax)
+	{
+		Vector2 returnval = Vector2();
+		if (value.x > clampMax.x)
+		{
+			returnval.x = clampMax.x;
+		}
+		else if (value.x < clampMin.x)
+		{
+			returnval.x = clampMin.x;
+		}
+		else
+		{
+			returnval.x = value.x;
+		}
+		if (value.y > clampMax.y)
+		{
+			returnval.y = clampMax.y;
+		}
+		else if (value.y < clampMin.y)
+		{
+			returnval.y = clampMin.y;
+		}
+		else
+		{
+			returnval.y = value.y;
+		}
+		return returnval;
 	}
 }

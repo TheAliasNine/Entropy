@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector2.h";
+#include "Vector2.h"
 
 namespace Math
 {
@@ -7,8 +7,8 @@ namespace Math
 	{
 	public:
 		//values and initialization
-		float x = 0, y = 0, z = 0;
-		Vector3() {};
+		float x, y, z;
+		Vector3();
 		Vector3(float x, float y, float z);
 
 		//conversions
@@ -16,10 +16,10 @@ namespace Math
 
 
 		//operators
-		static Vector3 operator+(Vector3 lhs, Vector3 rhs);
-		static Vector3 operator-(Vector3 lhs, Vector3 rhs);
-		static Vector3 operator*(Vector3 v3, float f);
-		static Vector3 operator/(Vector3 v3, float f);
+		Vector3 operator + (Vector3 other);
+		Vector3 operator - (Vector3 other);
+		Vector3 operator * (float f);
+		Vector3 operator / (float f);
 
 		//methods
 		float Magnitude();
